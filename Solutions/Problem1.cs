@@ -20,7 +20,7 @@ public class Problem1
         // Arrange
         
         // Act
-        var result = Solver.IsMultipleOf3(num);
+        var result = Problem1Solver.IsMultipleOf3(num);
 
         // Assert
         result.ShouldBe(expectedResult);
@@ -37,7 +37,7 @@ public class Problem1
         // Arrange
         
         // Act
-        var result = Solver.IsMultipleOf5(num);
+        var result = Problem1Solver.IsMultipleOf5(num);
 
         // Assert
         result.ShouldBe(expectedResult);
@@ -48,7 +48,7 @@ public class Problem1
     {
         var list = new List<int> { 1, 3, 5, 6, 8, 9 };
 
-        var result = Solver.GetMultiplesOf3(list);
+        var result = Problem1Solver.GetMultiplesOf3(list);
 
         result.ShouldNotBeNull();
         result.ShouldNotBeEmpty();
@@ -60,7 +60,7 @@ public class Problem1
     {
         var list = new List<int> { 1, 3, 5, 6, 8, 9 };
 
-        var result = Solver.GetMultiplesOf5(list);
+        var result = Problem1Solver.GetMultiplesOf5(list);
 
         result.ShouldNotBeNull();
         result.ShouldNotBeEmpty();
@@ -72,7 +72,7 @@ public class Problem1
     {
         var upperBound = 25;
 
-        var result = Solver.GetAllMultiplesOf3And5FromNaturalNumber(upperBound);
+        var result = Problem1Solver.GetAllMultiplesOf3And5FromNaturalNumber(upperBound);
 
         result.ShouldNotBeNull();
         result.ShouldNotBeEmpty();
@@ -84,12 +84,12 @@ public class Problem1
     [InlineData(1000, 233168)] // ANSWER
     public void ShouldReturnSumOfAllMultiplesOf3And5FromNaturalNumber(int upperBound, int result)
     {
-        Solver.GetSumOfAllMultiplesOf3And5FromNaturalNumber(upperBound).ShouldBe(result);
+        Problem1Solver.GetSumOfAllMultiplesOf3And5FromNaturalNumber(upperBound).ShouldBe(result);
     }
 
 }
 
-public static class Solver
+public static class Problem1Solver
 {
     public static bool IsMultipleOf3(int numToCheck)
     {
