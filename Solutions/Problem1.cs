@@ -74,27 +74,17 @@ public class Problem1
 
         var result = Solver.GetAllMultiplesOf3And5FromNaturalNumber(upperBound);
 
+        result.ShouldNotBeNull();
+        result.ShouldNotBeEmpty();
         result.Count.ShouldBe(12);
     }
     
-    [Fact]
-    public void ShouldReturnSumOfAllMultiplesOf3And5FromNaturalNumber()
+    [Theory]
+    [InlineData(12, 33)]
+    [InlineData(1000, 233168)] // ANSWER
+    public void ShouldReturnSumOfAllMultiplesOf3And5FromNaturalNumber(int upperBound, int result)
     {
-        var upperBound = 12;
-
-        var result = Solver.GetSumOfAllMultiplesOf3And5FromNaturalNumber(upperBound);
-
-        result.ShouldBe(33);
-    }
-    
-    [Fact]
-    public void ShouldReturnSumOfAllMultiplesOf3And5FromNaturalNumber_Answer()
-    {
-        var upperBound = 1000;
-
-        var result = Solver.GetSumOfAllMultiplesOf3And5FromNaturalNumber(upperBound);
-
-        result.ShouldBe(233168); // ANSWER
+        Solver.GetSumOfAllMultiplesOf3And5FromNaturalNumber(upperBound).ShouldBe(result);
     }
 
 }
