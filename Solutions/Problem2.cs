@@ -48,7 +48,19 @@ public class Problem2
         List<int> result = Problem2Solver.GenerateFibonacciSequenceWithOnlyEvenNumbers(upperBound).ToList();
         
         result.Count().ShouldBe(3);
-        // Contains x,y,z nums
+        result[0].ShouldBe(2);
+        result[1].ShouldBe(8);
+        result[2].ShouldBe(34);
+    }
+
+    [Theory]
+    [InlineData(90, 44)]
+    [InlineData(4000000, 4613732)] // ANSWER
+    public void ShouldReturnSumOfEvenNumbersFromFibonacciSequence(int upperBound, int expectedSum)
+    {
+        var result = Problem2Solver.GetSumOfEvenFibonacciSequence(upperBound);
+
+        result.ShouldBe(expectedSum);
     }
     
 }
@@ -59,28 +71,6 @@ public static class Problem2Solver
     {
         return (i % 2) == 0;
     }
-
-    public static List<int> GenerateFibonacciSequence(int firstNum, int secondNum, int numOfSequenceItems)
-    {
-        List<int> fibSeq = new List<int>();
-        
-        fibSeq.Add(firstNum);
-        fibSeq.Add(secondNum);
-
-        var firstPrevNum = firstNum;
-        var secondPrevNum = secondNum;
-        
-        for (int i = 0; i < numOfSequenceItems - 2; i++)
-        {
-            var result = firstPrevNum + secondPrevNum;
-            fibSeq.Add(result);
-            firstPrevNum = secondPrevNum;
-            secondPrevNum = result;
-        }
-        
-        return fibSeq;
-    }
-
 
     public static List<int> GenerateFibonacciSequence(int upperBound)
     {
@@ -117,5 +107,10 @@ public static class Problem2Solver
     public static List<int> GenerateFibonacciSequenceWithOnlyEvenNumbers(int upperBound)
     {
         return GenerateFibonacciSequence(upperBound).Where(IsEven).ToList();;
+    }
+
+    public static int GetSumOfEvenFibonacciSequence(int upperBound)
+    {
+        return GenerateFibonacciSequenceWithOnlyEvenNumbers(upperBound).Sum();
     }
 }
