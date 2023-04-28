@@ -15,8 +15,8 @@ public class Problem2
 
     // Thoughts....
     
-    // Generate Fibonacci Numbers where fN < 4M
-    // Gather even numbers
+    // Generate Fibonacci Numbers where fN < 4M - DONE
+    // Gather even numbers - DONE
     // Sum them
 
     [Theory]
@@ -30,17 +30,27 @@ public class Problem2
         Problem2Solver.IsEven(numToTest).ShouldBe(expected);
     }
 
-    [Fact]
-    public void ShouldGenerateFibonacciSequenceFromTwoStartingNumbers()
+    [Theory]
+    [InlineData(10, 5)]
+    [InlineData(90, 10)]
+    public void ShouldGenerateFibonacciSequenceWithUpperBound(int upperBound, int expectedCount)
     {
-        var firstNum = 1;
-        var secondNum = 2;
-        var numOfSequenceItems = 10;
-
-        List<int> result = Problem2Solver.GenerateFibonacciSequence(firstNum, secondNum, numOfSequenceItems).ToList();
+        List<int> result = Problem2Solver.GenerateFibonacciSequence(upperBound).ToList();
         
-        result.Count().ShouldBe(10);
+        result.Count().ShouldBe(expectedCount);
     }
+
+    [Fact]
+    public void ShouldReturnEvenNumbersFromFibonacciSequence()
+    {
+        var upperBound = 90;
+
+        List<int> result = Problem2Solver.GenerateFibonacciSequenceWithOnlyEvenNumbers(upperBound).ToList();
+        
+        result.Count().ShouldBe(3);
+        // Contains x,y,z nums
+    }
+    
 }
 
 public static class Problem2Solver
@@ -70,6 +80,42 @@ public static class Problem2Solver
         
         return fibSeq;
     }
-    
-    
+
+
+    public static List<int> GenerateFibonacciSequence(int upperBound)
+    {
+        List<int> fibSeq = new List<int>();
+
+        const int firstNum = 1;
+        const int secondNum = 2;
+
+        fibSeq.Add(firstNum);
+        fibSeq.Add(secondNum);
+
+        var firstPrevNum = firstNum;
+        var secondPrevNum = secondNum;
+
+        while (true)
+        {
+            var result = firstPrevNum + secondPrevNum;
+            if (result < upperBound)
+            {
+                fibSeq.Add(result);
+                // setup next iteration
+                firstPrevNum = secondPrevNum;
+                secondPrevNum = result;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        return fibSeq;
+    }
+
+    public static List<int> GenerateFibonacciSequenceWithOnlyEvenNumbers(int upperBound)
+    {
+        return GenerateFibonacciSequence(upperBound).Where(IsEven).ToList();;
+    }
 }
