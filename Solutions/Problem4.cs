@@ -1,5 +1,4 @@
 using Shouldly;
-using Xunit.Sdk;
 
 namespace Test;
 
@@ -10,11 +9,11 @@ public class Problem4
     // Problem 4
     // A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit
     // numbers is 9009 = 91 × 99.
-    //
+    
     // Find the largest palindrome made from the product of two 3-digit numbers.
     
     // DONE: IsPalindrome
-    // TODO: Loop through all three digits number combos (Brute Force)
+    // DONE: Loop through all three digits number combos (Brute Force)
 
     [Theory]
     [InlineData(123321, true)]
@@ -41,36 +40,20 @@ public static class Problem4Solver
     public static bool IsPalindrome(int numToCheck)
     {
         var charList = numToCheck.ToString().Select(x => x).ToList<char>();
-        
         var reversedCharList = ReverseMyCharList(charList);
         
-       
-        var retVal = true;
-        
-        for (int i = 0; i < charList.Count / 2; i++)
-        {
-            if (DoIndexCharAndInverseIndexCharMatch(charList, i) && retVal) continue;
-            retVal = false;
-            break;
-        }
-
-        return retVal;
+       return charList.SequenceEqual(reversedCharList);
     }
 
     private static List<char>? ReverseMyCharList(List<char> charList)
     {
-        List<char>? reverseCharList = charList;
+        List<char>? reverseCharList = charList.ToList();
         if (reverseCharList != null)
         {
             reverseCharList.Reverse();
         }
 
         return reverseCharList;
-    }
-
-    private static bool DoIndexCharAndInverseIndexCharMatch(List<char> charList, int i)
-    {
-        return charList[i] == charList[charList.Count - 1 - i];
     }
 
     public static int HighestDigitList()
@@ -81,10 +64,9 @@ public static class Problem4Solver
         {
             for (int j = 999; j >= 100; j--)
             {
-                var temp = i * j;
-                if (IsPalindrome(temp))
+                if (IsPalindrome(i * j))
                 {
-                    highestDigitList.Add(temp);            
+                    highestDigitList.Add(i * j);            
          
                 }
             }
