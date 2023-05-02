@@ -47,12 +47,10 @@ public static class Problem4Solver
 
     private static List<char>? ReverseMyCharList(List<char> charList)
     {
-        List<char>? reverseCharList = charList.ToList();
-        if (reverseCharList != null)
-        {
-            reverseCharList.Reverse();
-        }
-
+        List<char> reverseCharList = charList.ToList();
+        
+        reverseCharList.Reverse();
+        
         return reverseCharList;
     }
 
