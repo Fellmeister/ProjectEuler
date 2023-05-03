@@ -32,7 +32,24 @@ public class Problem5
     [Fact]
     public void ShouldReturnSmallestPossibleNumberWhenDividingByAllNumbersFrom1To10()
     {
-        Problem5Solver.GetSmallestNumberAllNumbersFrom1To10DivideInto().ShouldBe(2520);
+        int[] divisors = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        var expected = 2520;
+        
+        var result = Problem5Solver.SmallestNumberAllDivisorsDivideIntoCompletely(divisors);
+
+        result.ShouldBe(expected);
+    }
+    
+    
+    [Fact]
+    public void ShouldReturnSmallestPossibleNumberWhenDividingByAllNumbersFrom1To20_ANSWER()
+    {
+        int[] divisors = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+        var expected = 232792560;
+        
+        var result = Problem5Solver.SmallestNumberAllDivisorsDivideIntoCompletely(divisors);
+
+        result.ShouldBe(expected);
     }
 }
 
@@ -43,26 +60,20 @@ public static class Problem5Solver
         return (dividend % divisor != 0);
     }
 
-    public static int GetSmallestNumberAllNumbersFrom1To10DivideInto()
+    public static int SmallestNumberAllDivisorsDivideIntoCompletely(int[] divisors)
     {
-        int[] divisors = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        
-        return SmallestNumberAllDivisorsDivideIntoCompletely(divisors.Max(), divisors);
-    }
-
-    private static int SmallestNumberAllDivisorsDivideIntoCompletely(int dividendCandidate, int[] divisors)
-    {
+        var dividendCandidate = divisors.Max();
         while (true)
         {
-            var canDivide = false;
+            var canDivideCompletely = false;
             foreach (var divisor in divisors)
             {
-                canDivide = !HasRemainder(dividendCandidate, divisor);
+                canDivideCompletely = !HasRemainder(dividendCandidate, divisor);
 
-                if (canDivide == false) break;
+                if (canDivideCompletely == false) break;
             }
 
-            if (canDivide) break;
+            if (canDivideCompletely) break;
             dividendCandidate++;
         }
 
