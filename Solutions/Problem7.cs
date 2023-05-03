@@ -23,6 +23,15 @@ public class Problem7
         result.Count.ShouldBe(count);
     }
     
+    [Fact]
+    public void ShouldCreateCollectionOfPrimeNumbersFor10001PrimeNumbers_ANSWER()
+    {
+        var count = 10001;
+        
+        var result = Problem7Solver.GetCollectionOfPrimeNumbers(count);
+
+        result.Count.ShouldBe(count);
+    }
 }
 
 public static class Problem7Solver
