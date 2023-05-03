@@ -30,9 +30,9 @@ public class Problem5
     }
 
     [Fact]
-    public void ShouldReturnSmallestPossibleNumberWhenDividingByAllNumbersFrom1To20()
+    public void ShouldReturnSmallestPossibleNumberWhenDividingByAllNumbersFrom1To10()
     {
-        
+        Problem5Solver.GetSmallestNumberAllNumbersFrom1To10DivideInto().ShouldBe(2520);
     }
 }
 
@@ -41,5 +41,31 @@ public static class Problem5Solver
     public static bool HasRemainder(int dividend, int divisor)
     {
         return (dividend % divisor != 0);
+    }
+
+    public static int GetSmallestNumberAllNumbersFrom1To10DivideInto()
+    {
+        int[] divisors = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        
+        return SmallestNumberAllDivisorsDivideIntoCompletely(divisors.Max(), divisors);
+    }
+
+    private static int SmallestNumberAllDivisorsDivideIntoCompletely(int dividendCandidate, int[] divisors)
+    {
+        while (true)
+        {
+            var canDivide = false;
+            foreach (var divisor in divisors)
+            {
+                canDivide = !HasRemainder(dividendCandidate, divisor);
+
+                if (canDivide == false) break;
+            }
+
+            if (canDivide) break;
+            dividendCandidate++;
+        }
+
+        return dividendCandidate;
     }
 }
