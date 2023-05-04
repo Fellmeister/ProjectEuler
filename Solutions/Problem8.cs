@@ -43,7 +43,7 @@ public class Problem8
     }
 
     [Fact]
-    public void ShouldReturnXXXForMaximumThirteenDigitProductIn1000DigitNumber()
+    public void ShouldReturn23514624000ForMaximumThirteenDigitProductIn1000DigitNumber_ANSWER()
     {
         var result = Problem8Solver.MaxProductFromAdjacents(13);
         result.ShouldBe(23514624000);
@@ -78,30 +78,26 @@ public static class Problem8Solver
         // LOOP STARTS
         while (end < intArray.Length)
         {
-
-            // Take N elements
-            var tempArray = intArray.Take(new Range(start, end)).ToArray();
-
             // Get the product 
-            long runningTotal = 0;
+            long adjacentTotal = 0;
+            // Take N elements
+            var adjacentArray = intArray.Take(new Range(start, end)).ToArray();
 
-            for (int j = 0; j < tempArray.Length; j++)
+            for (int j = 0; j < adjacentArray.Length; j++)
             {
-                if (j == 0) runningTotal = tempArray[j];
+                if (j == 0) adjacentTotal = adjacentArray[j];
                 else
                 {
-                    runningTotal *= tempArray[j];
+                    adjacentTotal *= adjacentArray[j];
                 }
             }
 
             // If larger than maxResult -> Update
-            if (runningTotal > maxResult) maxResult = runningTotal;
+            if (adjacentTotal > maxResult) maxResult = adjacentTotal;
 
             // Move along array
             start++;
             end++;
-
-            //END LOOP
         }
 
         return maxResult;

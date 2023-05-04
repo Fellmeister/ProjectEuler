@@ -65,9 +65,9 @@ public class Problem3
     [Fact]
     public void ShouldReturnMaximumPrimeFactorOfNumber_ANSWER()
     {
-        var result = Problem3Solver.GetMaxPrimeFactorOfNumber(456975);
+        var result = Problem3Solver.GetMaxPrimeFactorOfNumber(600851475143);
 
-        result.ShouldBe(823);
+        result.ShouldBe(6857);
     }
 }
 
@@ -75,7 +75,6 @@ public static class Problem3Solver
 {
     public static bool IsPrime(long numToCheck)
     {
-        Console.WriteLine($"numToCheck: {numToCheck}");
         if (numToCheck != 2 && numToCheck % 2 == 0) return false;
         // Try and divide it by every number less than itself?
         var hasBeenDivided = false;
@@ -98,11 +97,14 @@ public static class Problem3Solver
 
         for (long i = 1; i < numToCheck; i++)
         {
-            //Console.WriteLine($"i is {i}");
-            if ((numToCheck % i) == 0 && IsPrime(i))
+            
+            if ((numToCheck % i) == 0)
             {
-                allPrimeFactors.Add(i);
-                Console.WriteLine($"i ({i}) has been added");
+                if (IsPrime(i))
+                {
+                    allPrimeFactors.Add(i);
+                    Console.WriteLine($"i ({i}) has been added");
+                }
             }
         }
         
